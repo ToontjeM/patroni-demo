@@ -1,4 +1,4 @@
-var_box = "generic/rocky8"
+var_box = "ubuntu/focal64"
 
 Vagrant.configure("2") do |config|
 

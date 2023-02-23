@@ -13,16 +13,18 @@
       set_fact:
         pg_version: 14
         pg_type: "EPAS"
-        repo_username: USER
-        repo_password: PASSWORD"
+        repo_token: "{{ token }}"
         use_patroni: true
         disable_logging: false
+        force_initdb: true
 
   roles:
     - role: setup_repo
       when: "'setup_repo' in lookup('edb_devops.edb_postgres.supported_roles', wantlist=True)"
     - role: install_dbserver
       when: "'install_dbserver' in lookup('edb_devops.edb_postgres.supported_roles', wantlist=True)"
+    - role: init_dbserver
+      when: "'init_dbserver' in lookup('edb_devops.edb_postgres.supported_roles', wantlist=True)"
     - role: setup_etcd
       when: "'setup_etcd' in lookup('edb_devops.edb_postgres.supported_roles', wantlist=True)"
     - role: setup_patroni
