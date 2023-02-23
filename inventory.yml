@@ -1,0 +1,22 @@
+---
+all:
+  children:
+    primary:
+      hosts:
+        pg1:
+          ansible_host: pg1
+          private_ip: 192.168.56.11
+    standby:
+      hosts:
+        pg2:
+          ansible_host: pg2
+          private_ip: 192.168.56.12
+          upstream_node_private_ip: 192.168.56.11
+          replication_type: synchronous
+        pg3:
+          ansible_host: pg3
+          private_ip: 192.168.56.13
+          upstream_node_private_ip: 192.168.56.11
+          replication_type: synchronous
+  vars: 
+    ansible_user: vagrant
