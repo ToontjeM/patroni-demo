@@ -14,10 +14,12 @@
         pg_version: 14
         pg_type: "EPAS"
         repo_token: "{{ token }}"
-        use_patroni: true
         disable_logging: false
-        force_initdb: true
-
+#        force_initdb: true
+        force_initdb: false
+        pg_superuser_password: "enterprisedb"
+        pg_random_password: false
+        
   roles:
     - role: setup_repo
       when: "'setup_repo' in lookup('edb_devops.edb_postgres.supported_roles', wantlist=True)"
@@ -25,7 +27,7 @@
       when: "'install_dbserver' in lookup('edb_devops.edb_postgres.supported_roles', wantlist=True)"
     - role: init_dbserver
       when: "'init_dbserver' in lookup('edb_devops.edb_postgres.supported_roles', wantlist=True)"
-    - role: setup_etcd
-      when: "'setup_etcd' in lookup('edb_devops.edb_postgres.supported_roles', wantlist=True)"
-    - role: setup_patroni
-      when: "'setup_patroni' in lookup('edb_devops.edb_postgres.supported_roles', wantlist=True)"
+    - role: setup_replication
+      when: "'setup_replication' in lookup('edb_devops.edb_postgres.supported_roles', wantlist=True)"
+    - role: setup_efm
+      when: "'setup_efm' in lookup('edb_devops.edb_postgres.supported_roles', wantlist=True)" 
