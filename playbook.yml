@@ -19,15 +19,17 @@
         force_initdb: false
         pg_superuser_password: "enterprisedb"
         pg_random_password: false
+        disable_logging: false
+        use_hostname: true
         
   roles:
     - role: setup_repo
       when: "'setup_repo' in lookup('edb_devops.edb_postgres.supported_roles', wantlist=True)"
     - role: install_dbserver
       when: "'install_dbserver' in lookup('edb_devops.edb_postgres.supported_roles', wantlist=True)"
+    - role: setup_etcd
+      when: "'setup_etcd' in lookup('edb_devops.edb_postgres.supported_roles', wantlist=True)"
+    - role: setup_patroni
+      when: "'setup_patroni' in lookup('edb_devops.edb_postgres.supported_roles', wantlist=True)"
     - role: init_dbserver
       when: "'init_dbserver' in lookup('edb_devops.edb_postgres.supported_roles', wantlist=True)"
-    - role: setup_replication
-      when: "'setup_replication' in lookup('edb_devops.edb_postgres.supported_roles', wantlist=True)"
-    - role: setup_efm
-      when: "'setup_efm' in lookup('edb_devops.edb_postgres.supported_roles', wantlist=True)" 

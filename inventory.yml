@@ -6,6 +6,9 @@ all:
         pg1:
           ansible_host: pg1
           private_ip: 192.168.56.11
+          etcd: true
+          etcd_cluster_name: 'patroni-etcd'
+
     standby:
       hosts:
         pg2:
@@ -13,10 +16,14 @@ all:
           private_ip: 192.168.56.12
           upstream_node_private_ip: 192.168.56.11
           replication_type: synchronous
+          etcd: true
+          etcd_cluster_name: 'patroni-etcd'
         pg3:
           ansible_host: pg3
           private_ip: 192.168.56.13
           upstream_node_private_ip: 192.168.56.11
           replication_type: synchronous
+          etcd: true
+          etcd_cluster_name: 'patroni-etcd'
   vars: 
     ansible_user: vagrant
